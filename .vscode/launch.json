@@ -9,7 +9,6 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/pang",
-            // "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

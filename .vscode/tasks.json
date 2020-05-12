@@ -6,11 +6,9 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                //"${file}",
                 "${workspaceFolder}/code/src/*.cpp",
                 "-Wall",
                 "-o",
-                //"${fileDirname}/${fileBasenameNoExtension}",
                 "${workspaceFolder}/build/pang",
                 "-lsfml-graphics",
                 "-lsfml-window",

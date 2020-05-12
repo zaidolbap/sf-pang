@@ -4,7 +4,6 @@
 
 Game::Game()
     : gameState{ GameState::Uninitialized }
-    //, mainWindow{ sf::RenderWindow{} }
 {
     mainWindow.create(sf::VideoMode(1024, 768, 32), "Pang!");
 }
