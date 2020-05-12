@@ -16,7 +16,6 @@ void Game::start(){
         return;
     }
 
-    // mainWindow.create(sf::VideoMode(1024, 768, 32), "Pang!");
     gameState = GameState::Playing;
 
     while(!isExiting()){
