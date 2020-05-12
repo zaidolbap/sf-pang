@@ -1,6 +1,6 @@
-#include <iostream>
+#include <iostream> // todo: delete when no longer needed
 
- #include "game.hpp"
+ #include "../lib/game.hpp"
 
 int main() {
     std::cout << "pang!" << std::endl;

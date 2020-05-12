@@ -2,13 +2,16 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "baf g++ sfml",
+            "label": "build pang g++ sfml",
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                "${file}",
+                //"${file}",
+                "${workspaceFolder}/code/src/*.cpp",
+                "-Wall",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                //"${fileDirname}/${fileBasenameNoExtension}",
+                "${workspaceFolder}/build/pang",
                 "-lsfml-graphics",
                 "-lsfml-window",
                 "-lsfml-system"
@@ -20,3 +23,5 @@
     ],
     "version": "2.0.0"
 }
+
+// reference https://code.visualstudio.com/docs/cpp/config-linux

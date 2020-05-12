@@ -1,26 +1,15 @@
-#pragma once
+#include <iostream> // todo: delete when no longer needed
 
-#include <SFML/Graphics.hpp>
+#include "../lib/game.hpp"
 
-enum class GameState{
-    Uninitialized,
-    SplashScreen,
-    Paused,
-    Menu,
-    Playing,
-    Exiting
-};
+Game::Game()
+    : gameState{ GameState::Uninitialized }
+    //, mainWindow{ sf::RenderWindow{} }
+{
+    mainWindow.create(sf::VideoMode(1024, 768, 32), "Pang!");
+}
 
-class Game {
-    // @todo: implement singleton pattern
-public:
-    // Game();
-    Game(): gameState{ GameState::Uninitialized }
-    {
-        mainWindow.create(sf::VideoMode(1024, 768, 32), "Pang!");
-    }
-    // void start();
-void start(){
+void Game::start(){
     
     if(GameState::Uninitialized != gameState) {
         // todo: throw an exception and print an error
@@ -37,14 +26,11 @@ void start(){
     mainWindow.close();
 }
 
+bool Game::isExiting(){
+    return GameState::Exiting == gameState? true : false; 
+}
 
-private:
-    // bool isExiting();
-    bool isExiting(){
-        return GameState::Exiting == gameState? true : false; 
-    }
-    // void gameLoop();
-void gameLoop(){
+void Game::gameLoop(){
     sf::Event currentEvent;
 
     while(mainWindow.pollEvent(currentEvent)){
@@ -62,7 +48,3 @@ void gameLoop(){
         }
     }
 }
-
-    GameState gameState;
-    sf::RenderWindow mainWindow;
-};
