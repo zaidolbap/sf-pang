@@ -1,6 +1,6 @@
 #include <iostream> // todo: delete when no longer needed
 
-#include "../lib/game.hpp"
+#include "../lib/Game.hpp"
 
 Game::Game()
     : gameState{ GameState::Uninitialized }

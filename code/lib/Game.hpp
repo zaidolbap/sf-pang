@@ -1,15 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
-enum class GameState{
-    Uninitialized,
-    SplashScreen,
-    Paused,
-    Menu,
-    Playing,
-    Exiting
-};
+#include "GameState.hpp"
 
 class Game {
     // @todo: implement singleton pattern
