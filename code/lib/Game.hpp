@@ -10,9 +10,9 @@ public:
     void start();
 
 private:
-    bool isExiting();
     void gameLoop();
+    void showSplashScreen();
 
     GameState gameState;
-    sf::RenderWindow mainWindow;
+    sf::RenderWindow window;
 };

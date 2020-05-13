@@ -1,48 +1,58 @@
 #include <iostream> // todo: delete when no longer needed
 
 #include "../lib/Game.hpp"
+#include "../lib/SplashScreen.hpp"
 
 Game::Game()
-    : gameState{ GameState::Uninitialized }
-{
-    mainWindow.create(sf::VideoMode(1024, 768, 32), "Pang!");
-}
+: gameState{ GameState::Uninitialized }
+, window{}
+{}
 
 void Game::start(){
-    
+    std::cout << "starting" << std::endl;
     if(GameState::Uninitialized != gameState) {
         // todo: throw an exception and print an error
         std::cout << "wrong game state" << std::endl;
         return;
     }
 
-    gameState = GameState::Playing;
+    window.create(sf::VideoMode(1024, 768, 32), "Pang!");
+    gameState = GameState::SplashScreen;
 
-    while(!isExiting()){
-        gameLoop();
-    }
-    mainWindow.close();
+    gameLoop();
 }
 
-bool Game::isExiting(){
-    return GameState::Exiting == gameState? true : false; 
+void Game::showSplashScreen(){
+    SplashScreen splashScreen;
+    splashScreen.display(window);
 }
 
 void Game::gameLoop(){
     sf::Event currentEvent;
-
-    while(mainWindow.pollEvent(currentEvent)){
-        switch(gameState){
-            case GameState::Playing: {
-                mainWindow.clear();
-                // draw everything
-                mainWindow.display();
-
-                if(sf::Event::Closed ==  currentEvent.type){
-                    gameState = GameState::Exiting;
+    while(window.isOpen()){
+        while(window.pollEvent(currentEvent)){
+            switch(gameState){
+                case GameState::SplashScreen:{
+                    showSplashScreen();
+                    gameState = GameState::Playing;
                 }
-                break;
+                case GameState::Playing: {
+                    window.clear(sf::Color(255, 0, 0));
+                    // draw everything
+                    window.display();
+
+                    if(sf::Event::Closed ==  currentEvent.type){
+                        gameState = GameState::Exiting;
+                    }
+                    break;
+                }
+                case GameState::Exiting:{
+                    std::cout << "exiting" << std::endl;
+                    window.close();
+                    return;
+                }
             }
         }
     }
+
 }
