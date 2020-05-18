@@ -48,6 +48,7 @@ void Game::showMenu(){
 }
 
 void Game::gameLoop(){
+    // @todo: implement state pattern
     sf::Event event;
     while(window.isOpen()){
         while(window.pollEvent(event)){
@@ -79,5 +80,4 @@ void Game::gameLoop(){
             }
         }
     }
-
 }

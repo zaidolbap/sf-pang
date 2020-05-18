@@ -1,5 +1,5 @@
 #pragma once
-// #include <SFML/Rect.hpp>
+
 #include <SFML/Graphics.hpp>
 #include<list>
 
@@ -15,5 +15,5 @@ class Menu {
     private:
         Response getResponse(sf::RenderWindow& window);
         Response handleClick(int const x, int const y);
-        std::list<Item> items;
+        std::list<Item> items{};
 };
