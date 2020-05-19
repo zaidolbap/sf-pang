@@ -10,9 +10,9 @@ public:
     enum class GameState{
         Uninitialized,
         SplashScreen,
-        Paused,
         Menu,
         Playing,
+        Paused,
         Exiting
     };
 

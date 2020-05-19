@@ -18,7 +18,7 @@ sudo apt install libsfml-dev libsfml-doc
 ```
 
 ## running pang
-To run pang, open *pang.cpp* (main) in vscode and start the *g++ smfl baf* debugging configuration.
+To run pang, open *pang.cpp* (main) in vscode and start the *gdb pang* debugging configuration.
 
 
 ---

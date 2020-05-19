@@ -24,7 +24,6 @@ void Game::start(){
 void Game::showSplashScreen(){
     SplashScreen splashScreen;
     splashScreen.display(window);
-
     gameState = GameState::Menu;
 }
 

@@ -3,7 +3,6 @@
 void SplashScreen::display(sf::RenderWindow& window){
     sf::Texture texture;
     if(!texture.loadFromFile("graphics/splashscreen.png")){
-        // todo: throw exception or return silently (without showing any splashscreen)?
         return;
     }
 
@@ -24,5 +23,4 @@ void SplashScreen::display(sf::RenderWindow& window){
             }
         }
     }
-
 }

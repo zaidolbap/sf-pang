@@ -3,12 +3,8 @@
 Menu::Response Menu::display(sf::RenderWindow& window){
     sf::Texture texture;
     if(!texture.loadFromFile("graphics/mainmenu.png")){
-        // todo: throw exception or return silently?
         return Response::Play;
     }
-
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
 
     // set up clickable regions
     Item playButton{ {0, 145, 1023, 235}, Response::Play};
@@ -16,6 +12,8 @@ Menu::Response Menu::display(sf::RenderWindow& window){
     items.push_back(playButton);
     items.push_back(exitButton);
 
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
     window.draw(sprite);
     window.display();
 
@@ -35,7 +33,7 @@ Menu::Response Menu::getResponse(sf::RenderWindow& window){
     }
 }
 
-Menu::Response Menu::handleClick(int const x, int const y){
+Menu::Response Menu::handleClick(int const& x, int const& y){
     for(const auto& item:items) {
         if(item.rectangle.contains(sf::Vector2i(x,y))){
             return item.response;
