@@ -4,20 +4,19 @@
 #include "../lib/SplashScreen.hpp"
 #include "../lib/Menu.hpp"
 
-Game::Game()
-: gameState{GameState::Uninitialized}
-, window{}
-{}
-
 void Game::start(){
     std::cout << "starting" << std::endl;
-    if(GameState::Uninitialized != gameState) {
-        // todo: throw an exception and print an error
+    if(GameState::SplashScreen != gameState) {
+        // todo: throw an exception?
         std::cout << "wrong game state" << std::endl;
         return;
     }
+
+    // create window and load assets
     window.create(sf::VideoMode(1024, 768, 32), "Pang!");
-    gameState = GameState::SplashScreen;
+    player.load("graphics/paddle.png");
+    player.setPosition(((1024/2)-45),700);
+
     gameLoop();
 }
 
@@ -61,11 +60,17 @@ void Game::gameLoop(){
                     break;
                 }
                 case GameState::Playing: {
-                    window.clear(sf::Color(255, 0, 0));
+                    window.clear(sf::Color(0, 0, 0));
                     // draw everything
+                    player.draw(window);
                     window.display();
 
-                    if(sf::Event::Closed ==  event.type){
+                    if(sf::Event::KeyPressed == event.type){
+                        if(sf::Keyboard::Escape == event.key.code){
+                            gameState = GameState::Menu;
+                            break;
+                        }
+                    } else if(sf::Event::Closed ==  event.type){
                         gameState = GameState::Exiting;
                     } else {
                         break;

@@ -1,26 +1,26 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 
 class Game {
     // @todo: implement singleton pattern
-public:
-    Game();
-    void start();
-    enum class GameState{
-        Uninitialized,
-        SplashScreen,
-        Menu,
-        Playing,
-        Paused,
-        Exiting
-    };
+    public:
+        void start();
 
-private:
-    void gameLoop();
-    void showSplashScreen();
-    void showMenu();
+    private:
+        void gameLoop();
+        void showSplashScreen();
+        void showMenu();
+        enum class GameState{
+            SplashScreen,
+            Menu,
+            Playing,
+            Paused,
+            Exiting
+        };
 
-    GameState gameState;
-    sf::RenderWindow window;
+        GameState gameState{GameState::SplashScreen};
+        sf::RenderWindow window{};
+        Player player{};
 };
