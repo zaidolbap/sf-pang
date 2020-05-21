@@ -24,6 +24,5 @@ class Game {
 
         GameState gameState{GameState::SplashScreen};
         sf::RenderWindow window{};
-        // Player player{};
         GameObjectManager gameObjectManager{};
 };

@@ -10,9 +10,6 @@
 
 class GameObjectManager {
     public:
-        GameObjectManager()  = default;
-        ~GameObjectManager() = default;
-
         void add (std::string const & name, std::weak_ptr<GameObject> gameObj);
         void remove(std::string name);
         std::size_t getObjectCount() const;

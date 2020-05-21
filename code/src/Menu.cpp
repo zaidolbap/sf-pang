@@ -28,10 +28,11 @@ Menu::Response Menu::getResponse(sf::RenderWindow& window){
     sf::Event event;
     while(window.isOpen()){
         while(window.pollEvent(event)){
-            if(sf::Event::Closed == event.type){
-                return Response::Exit;
-            } else if(sf::Event::MouseButtonPressed == event.type) {
-                return handleClick(event.mouseButton.x, event.mouseButton.y);
+            switch (event.type){
+                case sf::Event::Closed:
+                    return Response::Exit;
+                case sf::Event::MouseButtonPressed:
+                    return handleClick(event.mouseButton.x, event.mouseButton.y);
             }
         }
     }

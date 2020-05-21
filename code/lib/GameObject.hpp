@@ -9,6 +9,7 @@
 class GameObject {
     public:
         GameObject() = default;
+        GameObject(std::string const filename, sf::Vector2i const position);
         virtual ~GameObject() = default;
         virtual void load(std::string filename);
         virtual void draw(sf::RenderWindow& window);

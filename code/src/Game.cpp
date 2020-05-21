@@ -10,8 +10,6 @@
 void Game::start(){
     std::cout << "starting" << std::endl;
     if(GameState::SplashScreen != gameState) {
-        // todo: throw an exception?
-        std::cout << "wrong game state" << std::endl;
         return;
     }
 
@@ -21,15 +19,23 @@ void Game::start(){
     auto player = std::make_shared<Player>();
     player->load("graphics/paddle.png");
     player->setPosition(((1024/2)-45),700);
+
+    auto player2 = std::make_shared<Player>("graphics/paddle.png", sf::Vector2i((1024/2)-45, 100));
+
     gameObjectManager.add("paddle1", player);
+    gameObjectManager.add("paddle2", player2);
 
     gameLoop();
 }
 
 void Game::showSplashScreen(){
     SplashScreen splashScreen;
-    splashScreen.display(window);
-    gameState = GameState::Menu;
+    SplashScreen::Response response = splashScreen.display(window);
+    if(SplashScreen::Response::Ack == response){
+        gameState = GameState::Menu;
+    } else {
+        gameState = GameState::Exiting;
+    }
 }
 
 void Game::showMenu(){
@@ -43,11 +49,10 @@ void Game::showMenu(){
             gameState = GameState::Exiting;
             break;
         case Menu::Response::Nothing:
-            //gameState = GameState::Menu;
+            gameState = GameState::Menu;
             break;
         default:
-            std::cout << "wrong menu response" << std::endl;
-            //throw exception?
+            gameState = GameState::Exiting;
     }
 }
 
@@ -56,6 +61,9 @@ void Game::gameLoop(){
     sf::Event event;
     while(window.isOpen()){
         while(window.pollEvent(event)){
+            if(sf::Event::Closed ==  event.type){
+                gameState = GameState::Exiting;
+            } 
             switch(gameState){
                 case GameState::SplashScreen:{
                     showSplashScreen();
@@ -76,11 +84,8 @@ void Game::gameLoop(){
                             gameState = GameState::Menu;
                             break;
                         }
-                    } else if(sf::Event::Closed ==  event.type){
-                        gameState = GameState::Exiting;
-                    } else {
-                        break;
                     }
+                    break;
                 }
                 case GameState::Exiting:{
                     std::cout << "exiting" << std::endl;
