@@ -2,7 +2,9 @@
 
 #include <string>
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 class GameObject {
     public:
@@ -14,7 +16,7 @@ class GameObject {
         
     private:
         bool isLoaded{false};
-        sf::Sprite  sprite{};
         sf::Texture texture{};
+        sf::Sprite  sprite{};
         std::string fileName{""};
 };

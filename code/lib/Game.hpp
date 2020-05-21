@@ -1,7 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 #include "Player.h"
+#include "GameObjectManager.hpp"
 
 class Game {
     // @todo: implement singleton pattern
@@ -22,5 +24,6 @@ class Game {
 
         GameState gameState{GameState::SplashScreen};
         sf::RenderWindow window{};
-        Player player{};
+        // Player player{};
+        GameObjectManager gameObjectManager{};
 };

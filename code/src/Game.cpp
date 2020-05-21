@@ -1,4 +1,7 @@
 #include <iostream> // todo: delete when no longer needed
+#include <memory>
+
+#include <SFML/Window.hpp>
 
 #include "../lib/Game.hpp"
 #include "../lib/SplashScreen.hpp"
@@ -14,8 +17,11 @@ void Game::start(){
 
     // create window and load assets
     window.create(sf::VideoMode(1024, 768, 32), "Pang!");
-    player.load("graphics/paddle.png");
-    player.setPosition(((1024/2)-45),700);
+    
+    auto player = std::make_shared<Player>();
+    player->load("graphics/paddle.png");
+    player->setPosition(((1024/2)-45),700);
+    gameObjectManager.add("paddle1", player);
 
     gameLoop();
 }
@@ -62,7 +68,7 @@ void Game::gameLoop(){
                 case GameState::Playing: {
                     window.clear(sf::Color(0, 0, 0));
                     // draw everything
-                    player.draw(window);
+                    gameObjectManager.drallAll(window);
                     window.display();
 
                     if(sf::Event::KeyPressed == event.type){

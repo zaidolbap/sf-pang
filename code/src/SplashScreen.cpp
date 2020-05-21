@@ -1,5 +1,9 @@
 #include "../lib/SplashScreen.hpp"
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
 void SplashScreen::display(sf::RenderWindow& window){
     sf::Texture texture;
     if(!texture.loadFromFile("graphics/splashscreen.png")){

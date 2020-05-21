@@ -1,7 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include<list>
+
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 class Menu {
     public:

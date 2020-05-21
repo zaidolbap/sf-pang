@@ -1,5 +1,9 @@
 #include "../lib/Menu.hpp"
 
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Window.hpp>
+
 Menu::Response Menu::display(sf::RenderWindow& window){
     sf::Texture texture;
     if(!texture.loadFromFile("graphics/mainmenu.png")){
@@ -34,7 +38,7 @@ Menu::Response Menu::getResponse(sf::RenderWindow& window){
 }
 
 Menu::Response Menu::handleClick(int const& x, int const& y){
-    for(const auto& item:items) {
+    for(auto const & item:items) {
         if(item.rectangle.contains(sf::Vector2i(x,y))){
             return item.response;
         }
