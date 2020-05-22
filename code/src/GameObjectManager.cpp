@@ -24,8 +24,14 @@ std::size_t GameObjectManager::getObjectCount() const{
     return gameObjects.size();
 }
 
-void GameObjectManager::drallAll(sf::RenderWindow& window) {
+void GameObjectManager::drawAll(sf::RenderWindow& window) {
     for(auto const & gameObject : gameObjects){
         gameObject.second->draw(window);
+    }
+}
+
+void GameObjectManager::updateAll(float const & deltaTime){
+    for(auto const & gameObject: gameObjects){
+        gameObject.second->update(deltaTime);
     }
 }

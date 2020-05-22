@@ -2,6 +2,7 @@
 #include <memory>
 
 #include <SFML/Window.hpp>
+#include <SFML/System/Clock.hpp>
 
 #include "../lib/Game.hpp"
 #include "../lib/SplashScreen.hpp"
@@ -14,16 +15,16 @@ void Game::start(){
     }
 
     // create window and load assets
-    window.create(sf::VideoMode(1024, 768, 32), "Pang!");
+    window.create(sf::VideoMode(screenWidth, screenHeight, 32), "Pang!");
     
     auto player = std::make_shared<Player>();
     player->load("graphics/paddle.png");
-    player->setPosition(((1024/2)-45),700);
+    player->setPosition(sf::Vector2f((screenWidth/2)-45,700));
 
-    auto player2 = std::make_shared<Player>("graphics/paddle.png", sf::Vector2i((1024/2)-45, 100));
+    // auto player2 = std::make_shared<Player>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
 
     gameObjectManager.add("paddle1", player);
-    gameObjectManager.add("paddle2", player2);
+    // gameObjectManager.add("paddle2", player2);
 
     gameLoop();
 }
@@ -59,6 +60,7 @@ void Game::showMenu(){
 void Game::gameLoop(){
     // @todo: implement state pattern
     sf::Event event;
+    sf::Clock clock;
     while(window.isOpen()){
         while(window.pollEvent(event)){
             if(sf::Event::Closed ==  event.type){
@@ -75,8 +77,8 @@ void Game::gameLoop(){
                 }
                 case GameState::Playing: {
                     window.clear(sf::Color(0, 0, 0));
-                    // draw everything
-                    gameObjectManager.drallAll(window);
+                    gameObjectManager.updateAll(clock.restart().asSeconds());
+                    gameObjectManager.drawAll(window);
                     window.display();
 
                     if(sf::Event::KeyPressed == event.type){

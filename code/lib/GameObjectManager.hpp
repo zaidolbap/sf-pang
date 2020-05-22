@@ -14,7 +14,8 @@ class GameObjectManager {
         void remove(std::string const & name);
         std::size_t getObjectCount() const;
         std::shared_ptr<GameObject> get(std::string const & name) const;
-        void drallAll(sf::RenderWindow& window);
+        void drawAll(sf::RenderWindow& window);
+        void updateAll(float const & deltaTime);
 
     private:
         std::map<std::string, std::shared_ptr<GameObject>> gameObjects;

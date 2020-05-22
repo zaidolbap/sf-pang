@@ -9,14 +9,22 @@
 class GameObject {
     public:
         GameObject() = default;
-        GameObject(std::string const & filename, sf::Vector2i const & position);
+        GameObject(std::string const & filename, sf::Vector2f const & position);
         virtual ~GameObject() = default;
+
         virtual void load(std::string const & filename);
         virtual void draw(sf::RenderWindow& window);
-        virtual void setPosition(float const & x, float const & y);
-        
+        virtual void update(float const & elapsedTime){};
+
+        virtual void setPosition(sf::Vector2f const & position);
+        virtual sf::Vector2f getPosition() const;
+        virtual bool isLoaded() const;
+
+    protected:
+        sf::Sprite& getSprite();
+
     private:
-        bool isLoaded{false};
+        bool isTextureLoaded{false};
         sf::Texture texture{};
         sf::Sprite  sprite{};
         std::string fileName{""};
