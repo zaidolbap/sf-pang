@@ -6,7 +6,7 @@ class Player
 : public GameObject {
     public:
         Player() = default;
-        Player(std::string const filename, sf::Vector2i const position)
+        Player(std::string const & filename, sf::Vector2i const & position)
         : GameObject{filename, position}
         {}
 };

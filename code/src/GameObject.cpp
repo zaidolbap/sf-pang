@@ -1,11 +1,11 @@
 #include "../lib/GameObject.hpp"
 
-GameObject::GameObject(std::string const filename, sf::Vector2i const position){
+GameObject::GameObject(std::string const & filename, sf::Vector2i const & position){
     load(filename);
     setPosition(position.x, position.y);
 }
 
-void GameObject::load(std::string const filename){
+void GameObject::load(std::string const & filename){
     if(texture.loadFromFile(filename)){
         fileName = filename;
         sprite.setTexture(texture);
@@ -22,7 +22,7 @@ void GameObject::draw(sf::RenderWindow& window){
     }
 }
 
-void GameObject::setPosition(float const x, float const y){
+void GameObject::setPosition(float const & x, float const & y){
     if(isLoaded){
         sprite.setPosition(x, y);
     }

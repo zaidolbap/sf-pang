@@ -10,10 +10,10 @@
 
 class GameObjectManager {
     public:
-        void add (std::string const & name, std::weak_ptr<GameObject> gameObj);
-        void remove(std::string name);
+        void add (std::string const & name, std::shared_ptr<GameObject> const & gameObj);
+        void remove(std::string const & name);
         std::size_t getObjectCount() const;
-        std::shared_ptr<GameObject> get(std::string name) const;
+        std::shared_ptr<GameObject> get(std::string const & name) const;
         void drallAll(sf::RenderWindow& window);
 
     private:
