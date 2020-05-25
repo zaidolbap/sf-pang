@@ -37,11 +37,10 @@ void Player::update(float const & elapsedTime){
         speed = -maxSpeed;
     }
 
-    // remember that the center of the sprite is set in the middle of the texture, see GameObject::load()
-    auto const & halfTextureSize_x = getSprite().getTexture()->getSize().x/2;
     auto const & position_x = getPosition().x;
-    if(position_x < halfTextureSize_x || position_x > (Game::screenWidth - halfTextureSize_x) ){
+    auto const & textureSize_x = getSprite().getTexture()->getSize().x;
+    if( position_x < 0 || position_x + textureSize_x > Game::screenWidth ){
         speed = -speed; // bounce in opposite direction with same speed
     }
-    getSprite().move(speed * elapsedTime, 0);
+    getSprite().move(speed * elapsedTime, 0.f);
 }

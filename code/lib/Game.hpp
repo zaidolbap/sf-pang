@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "Player.hpp"
 #include "GameObjectManager.hpp"
@@ -13,9 +14,10 @@ class Game {
         static uint const screenHeight{768};
 
     private:
-        void gameLoop();
+        void run();
         void showSplashScreen();
         void showMenu();
+        void handleEvents();
         enum class GameState{
             SplashScreen,
             Menu,
@@ -27,4 +29,7 @@ class Game {
         GameState gameState{GameState::SplashScreen};
         sf::RenderWindow window{};
         GameObjectManager gameObjectManager{};
+
+        // float const minFps = 60.f;
+        // sf::Time const minDeltaTime = sf::seconds(1.f/minFps);
 };

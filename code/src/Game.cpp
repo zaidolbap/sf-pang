@@ -26,7 +26,7 @@ void Game::start(){
     gameObjectManager.add("paddle1", player);
     // gameObjectManager.add("paddle2", player2);
 
-    gameLoop();
+    run();
 }
 
 void Game::showSplashScreen(){
@@ -57,43 +57,45 @@ void Game::showMenu(){
     }
 }
 
-void Game::gameLoop(){
-    // @todo: implement state pattern
+void Game::handleEvents(){
     sf::Event event;
+    while(window.pollEvent(event)){
+        if(sf::Event::Closed ==  event.type){
+            gameState = GameState::Exiting;
+        } 
+    }
+}
+
+void Game::run(){
+    // @todo: implement state pattern
     sf::Clock clock;
     while(window.isOpen()){
-        while(window.pollEvent(event)){
-            if(sf::Event::Closed ==  event.type){
-                gameState = GameState::Exiting;
-            } 
-            switch(gameState){
-                case GameState::SplashScreen:{
-                    showSplashScreen();
-                    break;
+        auto elapsedTime = clock.restart();
+        std::cout << "elapsedTime: " << elapsedTime.asSeconds() << std::endl;
+        handleEvents();
+        switch(gameState){
+            case GameState::SplashScreen:{
+                showSplashScreen();
+                break;
+            }
+            case GameState::Menu:{
+                showMenu();
+                break;
+            }
+            case GameState::Playing: {
+                window.clear(sf::Color(0, 0, 0));
+                gameObjectManager.updateAll(elapsedTime.asSeconds());
+                gameObjectManager.drawAll(window);
+                window.display();
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                    gameState = GameState::Menu;
                 }
-                case GameState::Menu:{
-                    showMenu();
-                    break;
-                }
-                case GameState::Playing: {
-                    window.clear(sf::Color(0, 0, 0));
-                    gameObjectManager.updateAll(clock.restart().asSeconds());
-                    gameObjectManager.drawAll(window);
-                    window.display();
-
-                    if(sf::Event::KeyPressed == event.type){
-                        if(sf::Keyboard::Escape == event.key.code){
-                            gameState = GameState::Menu;
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case GameState::Exiting:{
-                    std::cout << "exiting" << std::endl;
-                    window.close();
-                    return;
-                }
+                break;
+            }
+            case GameState::Exiting:{
+                std::cout << "exiting" << std::endl;
+                window.close();
+                return;
             }
         }
     }
