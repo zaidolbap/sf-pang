@@ -9,7 +9,6 @@ void GameObject::load(std::string const & filename){
     if(texture.loadFromFile(filename)){
         fileName = filename;
         sprite.setTexture(texture);
-        //sprite.setOrigin(texture.getSize().x/2, texture.getSize().y/2);
         isTextureLoaded = true;
     } else {
         fileName = "";

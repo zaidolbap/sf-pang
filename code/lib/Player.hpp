@@ -7,10 +7,8 @@ class Player
     public:
         Player();
         Player(std::string const & filename, sf::Vector2f const & position);
-
+        
         void update(float const & elapsedTime) override;
-        // void draw(sf::RenderWindow& window);
-
         float getSpeed() const;
 
     private:

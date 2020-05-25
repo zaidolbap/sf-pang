@@ -29,7 +29,4 @@ class Game {
         GameState gameState{GameState::SplashScreen};
         sf::RenderWindow window{};
         GameObjectManager gameObjectManager{};
-
-        // float const minFps = 60.f;
-        // sf::Time const minDeltaTime = sf::seconds(1.f/minFps);
 };
