@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 class GameObject {
     public:
@@ -18,6 +19,10 @@ class GameObject {
 
         virtual void setPosition(sf::Vector2f const & position);
         virtual sf::Vector2f getPosition() const;
+        virtual uint getWidth()  const;
+        virtual uint getHeight() const;
+        virtual sf::Rect<float> getBoundingRectangle() const;
+
         virtual bool isLoaded() const;
 
     protected:

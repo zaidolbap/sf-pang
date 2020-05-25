@@ -35,6 +35,22 @@ sf::Vector2f GameObject::getPosition() const {
     return sf::Vector2f{};
 }
 
+uint GameObject::getWidth() const{
+    texture.getSize().x;
+}
+
+uint GameObject::getHeight() const{
+    texture.getSize().y;
+}
+
+sf::Rect<float> GameObject::getBoundingRectangle() const{
+    auto size = texture.getSize();
+    auto position = sprite.getPosition();
+
+    return sf::Rect<float>( position.x - size.x/2, position.y - size.y/2,
+                            position.x + size.x/2, position.y + size.y/2);
+}
+
 bool GameObject::isLoaded() const {
     return isTextureLoaded;
 }

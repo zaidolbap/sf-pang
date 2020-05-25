@@ -37,10 +37,9 @@ void Player::update(float const & elapsedTime){
         speed = -maxSpeed;
     }
 
-    auto const & position_x = getPosition().x;
-    auto const & textureSize_x = getSprite().getTexture()->getSize().x;
-    if( position_x < 0 || position_x + textureSize_x > Game::screenWidth ){
+    auto const & positionX = getPosition().x;
+    if( positionX < 0 || positionX + getWidth() > Game::screenWidth ){
         speed = -speed; // bounce in opposite direction with same speed
     }
-    getSprite().move(speed * elapsedTime, 0.f);
+    getSprite().move(speed*elapsedTime, 0.f);
 }
