@@ -7,6 +7,7 @@
 #include "../lib/Game.hpp"
 #include "../lib/SplashScreen.hpp"
 #include "../lib/Menu.hpp"
+#include "../lib/Ball.hpp"
 
 void Game::start(){
     std::cout << "starting" << std::endl;
@@ -23,8 +24,11 @@ void Game::start(){
 
     // auto player2 = std::make_shared<Player>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
 
+    auto ball = std::make_shared<Ball>();
+
     gameObjectManager.add("paddle1", player);
     // gameObjectManager.add("paddle2", player2);
+    gameObjectManager.add("ball", ball);
 
     run();
 }
