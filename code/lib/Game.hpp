@@ -18,16 +18,17 @@ class Game {
         static uint const screenWidth{1024};
         static uint const screenHeight{768};
 
-
         void start();
+
 
     private:
         Game() = default;
-        
+
         void run();
         void showSplashScreen();
         void showMenu();
         void handleEvents();
+
         enum class GameState{
             SplashScreen,
             Menu,
