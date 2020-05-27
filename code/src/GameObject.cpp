@@ -44,8 +44,8 @@ uint GameObject::getHeight() const{
 }
 
 sf::Rect<float> GameObject::getBoundingRectangle() const{
-    auto size = texture.getSize();
-    auto position = sprite.getPosition();
+    auto const & size = texture.getSize();
+    auto const & position = sprite.getPosition();
 
     return sf::Rect<float>( position.x - size.x/2, position.y - size.y/2,
                             position.x + size.x/2, position.y + size.y/2);
