@@ -10,6 +10,7 @@ class Game {
     public:
         Game(Game const &) = delete;
         void operator=(Game const &) = delete;
+        Game(Game&&) = delete;
 
         static Game& instance() {
             static Game game;
