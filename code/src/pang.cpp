@@ -5,8 +5,7 @@
 int main() {
     std::cout << "pang!" << std::endl;
 
-    Game game;
-    game.start();
+    Game::instance().start();
     
     return 0;
 }

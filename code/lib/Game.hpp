@@ -7,13 +7,22 @@
 #include "GameObjectManager.hpp"
 
 class Game {
-    // @todo: implement singleton pattern
     public:
+        static Game& instance() {
+            static Game game;
+            return game;    
+        }
+        Game(Game const &) = delete;
+        void operator=(Game const &) = delete;
+
         void start();
         static uint const screenWidth{1024};
         static uint const screenHeight{768};
 
+        
+
     private:
+        Game() = default;
         void run();
         void showSplashScreen();
         void showMenu();
