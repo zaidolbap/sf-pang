@@ -18,17 +18,17 @@ void Game::start(){
     // create window and load assets
     window.create(sf::VideoMode(screenWidth, screenHeight, 32), "Pang!");
     
-    auto player = std::make_shared<Player>();
-    player->load("graphics/paddle.png");
-    player->setPosition(sf::Vector2f((screenWidth/2)-45,700));
+    auto paddle = std::make_shared<Paddle>();
+    paddle->load("graphics/paddle.png");
+    paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
 
-    // auto player2 = std::make_shared<Player>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
+    // auto paddle2 = std::make_shared<Paddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
 
     auto ball = std::make_shared<Ball>();
 
-    gameObjectManager.add("paddle1", player);
-    // gameObjectManager.add("paddle2", player2);
-    gameObjectManager.add("ball", ball);
+    world.add("paddle1", paddle);
+    // world.add("paddle2", paddle2);
+    world.add("ball", ball);
 
     run();
 }
@@ -73,10 +73,26 @@ void Game::handleEvents(){
 void Game::run(){
     // @todo: implement state pattern
     sf::Clock clock;
+    auto lag = sf::Time::Zero;
     while(window.isOpen()){
-        auto elapsedTime = clock.restart();
-        std::cout << "elapsedTime: " << elapsedTime.asSeconds() << std::endl;
+        auto elapsed = clock.restart();
+        // lag += elapsed;
+        std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
+        
         handleEvents();
+        // either
+        // handleInput(); --> put handleEvents() inside?
+        // while(lag > timePerFrame){
+        //     lag -= timePerFrame;
+        //     update(elapsed); // or in update at the beginning?
+        // }
+        // render();
+        // or simply
+        // handleInput()
+        // update(elapsed)
+        // render
+        // sleep remaining time todo: add FPS control, is 30 fps enough?
+
         switch(gameState){
             case GameState::SplashScreen:{
                 showSplashScreen();
@@ -88,8 +104,8 @@ void Game::run(){
             }
             case GameState::Playing: {
                 window.clear(sf::Color(0, 0, 0));
-                gameObjectManager.updateAll(elapsedTime.asSeconds());
-                gameObjectManager.drawAll(window);
+                world.updateAll(elapsed.asSeconds());
+                world.drawAll(window);
                 window.display();
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
                     gameState = GameState::Menu;

@@ -3,8 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Time.hpp>
 
-#include "Player.hpp"
-#include "GameObjectManager.hpp"
+#include "Paddle.hpp"
+#include "World.hpp"
 
 class Game {
     public:
@@ -14,13 +14,12 @@ class Game {
 
         static Game& instance() {
             static Game game;
-            return game;    
+            return game;
         }
         static uint const screenWidth{1024};
         static uint const screenHeight{768};
 
         void start();
-
 
     private:
         Game() = default;
@@ -40,5 +39,8 @@ class Game {
 
         GameState gameState{GameState::SplashScreen};
         sf::RenderWindow window{};
-        GameObjectManager gameObjectManager{};
+        World world{};
+
+        constexpr static float FPS{30.f};
+        sf::Time const timePerFrame = sf::seconds(1.0f/FPS);
 };

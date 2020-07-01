@@ -1,6 +1,6 @@
 #pragma once
 
-#include<list>
+#include <list>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Rect.hpp>

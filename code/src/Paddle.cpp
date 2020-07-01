@@ -1,25 +1,19 @@
-#include "../lib/Player.hpp"
+#include "../lib/Paddle.hpp"
 #include "../lib/Game.hpp"
 
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player()
-: speed(0.0f)
-, maxSpeed(600.f){
-    load("graphics/paddle.png");
-}
+Paddle::Paddle()
+: Entity(0.0f, "graphics/paddle.png", sf::Vector2f(0.0f, 0.0f))
+, maxSpeed(600.f)
+{}
 
-Player::Player(std::string const & filename, sf::Vector2f const & position)
-: GameObject{filename, position}
-, speed(0.0f)
+Paddle::Paddle(std::string const & filename, sf::Vector2f const & position)
+: Entity{0.0f, filename, position}
 , maxSpeed(600.0f)
 {}
 
-float Player::getSpeed() const{
-    return speed;
-}
-
-void Player::update(float const & elapsedTime){
+void Paddle::update(float const & elapsedTime){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         speed -= 3.0f;
     }

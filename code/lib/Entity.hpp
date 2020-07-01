@@ -7,11 +7,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
-class GameObject {
+
+class Entity {
     public:
-        GameObject() = default;
-        GameObject(std::string const & filename, sf::Vector2f const & position);
-        virtual ~GameObject() = default;
+        Entity() = default;
+        Entity(float const& speed, std::string const & filename, sf::Vector2f const & position);
+        virtual ~Entity() = default;
 
         virtual void load(std::string const & filename);
         virtual void draw(sf::RenderWindow& window);
@@ -22,11 +23,14 @@ class GameObject {
         virtual uint getWidth()  const;
         virtual uint getHeight() const;
         virtual sf::Rect<float> getBoundingRectangle() const;
+        virtual float getSpeed() const;
+        virtual void setSpeed(float const & speed);
 
         virtual bool isLoaded() const;
 
     protected:
         sf::Sprite& getSprite();
+        float speed{0.0f}; // pixels/second: --left, ++right
 
     private:
         bool isTextureLoaded{false};
