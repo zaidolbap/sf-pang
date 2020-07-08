@@ -26,7 +26,7 @@ void Game::start(){
 
     auto ball = std::make_shared<Ball>();
 
-    world.add("paddle1", paddle);
+    world.add("player", paddle);
     // world.add("paddle2", paddle2);
     world.add("ball", ball);
 

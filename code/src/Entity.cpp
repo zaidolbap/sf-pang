@@ -45,11 +45,7 @@ uint Entity::getHeight() const{
 }
 
 sf::Rect<float> Entity::getBoundingRectangle() const{
-    auto const & size = texture.getSize();
-    auto const & position = sprite.getPosition();
-
-    return sf::Rect<float>(position.x - size.x/2, position.y - size.y/2,
-                           position.x + size.x/2, position.y + size.y/2);
+    return sprite.getGlobalBounds();
 }
 
 bool Entity::isLoaded() const {

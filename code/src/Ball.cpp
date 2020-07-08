@@ -59,8 +59,66 @@ void Ball::update(float const & elapsedTime){
         totalElapsedTime = 0.0f;
     }
 
-    // calculate collision with paddle
+    if (true == intersecting){
+        moveY = -moveY;
+        speed += 5.0f;
+        angle = ricochet;
+        setPosition(collisionPos);
+    } else {
+        resetIntersection();
+    }
+
     getSprite().move(moveX, moveY);    
+}
+
+void Ball::resetIntersection(){
+    intersecting = false;
+    ricochet     = angle;
+    collisionPos = sf::Vector2f{getPosition().x, getPosition().y};
+}
+
+void Ball::calcIntersection(std::shared_ptr<Entity> paddle){
+    resetIntersection();
+
+    if(paddle->getBoundingRectangle().intersects(getBoundingRectangle())){
+        intersecting = true;
+
+        ricochet = 360.0f - (ricochet-180.0f);
+        if (ricochet > 360.0f){
+            ricochet -= 360.0f;
+        }
+        
+        // ensure that the ball is not inside the paddle
+        if(paddle->getBoundingRectangle().top+getBoundingRectangle().height > paddle->getBoundingRectangle().top){
+            // collisionPos = sf::Vector2f{getPosition().x, paddle->getBoundingRectangle().top-getHeight()};
+            collisionPos.y = paddle->getBoundingRectangle().top-getHeight();
+        }
+        // TODO: HANDLE COLLISON AGAINST ALL PADDLE SIDES
+        else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
+            collisionPos.x = paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width;
+        }
+        else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
+            collisionPos.x = paddle->getBoundingRectangle().left;
+        }
+        else if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
+            collisionPos.y = paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height;
+        }
+
+        // add some randomness based on paddle's velocity
+        if (paddle->getSpeed() < 0.0f){
+            // moving left
+            ricochet -= 20.0f;
+            if (ricochet < 0.0f){
+                ricochet = 360.0f - ricochet;
+            }
+        } else if (paddle->getSpeed() > 0.0f){
+            // moving right
+            ricochet += 20.0f;
+            if (ricochet > 360.0f){
+                ricochet = ricochet - 360;
+            }
+        }
+    }
 }
 
 constexpr float reorient(float angle){

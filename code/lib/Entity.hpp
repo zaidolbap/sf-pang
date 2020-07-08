@@ -22,7 +22,7 @@ class Entity {
         virtual sf::Vector2f getPosition() const;
         virtual uint getWidth()  const;
         virtual uint getHeight() const;
-        virtual sf::Rect<float> getBoundingRectangle() const;
+        virtual sf::FloatRect getBoundingRectangle() const;
         virtual float getSpeed() const;
         virtual void setSpeed(float const & speed);
 
