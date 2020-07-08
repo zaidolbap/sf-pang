@@ -90,17 +90,15 @@ void Ball::calcIntersection(std::shared_ptr<Entity> paddle){
         
         // ensure that the ball is not inside the paddle
         if(paddle->getBoundingRectangle().top+getBoundingRectangle().height > paddle->getBoundingRectangle().top){
-            // collisionPos = sf::Vector2f{getPosition().x, paddle->getBoundingRectangle().top-getHeight()};
             collisionPos.y = paddle->getBoundingRectangle().top-getHeight();
-        }
-        // TODO: HANDLE COLLISON AGAINST ALL PADDLE SIDES
-        else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
+
+        } else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
             collisionPos.x = paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width;
-        }
-        else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
+
+        } else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
             collisionPos.x = paddle->getBoundingRectangle().left;
-        }
-        else if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
+            
+        } else if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
             collisionPos.y = paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height;
         }
 
