@@ -11,9 +11,9 @@ void AiPaddle::update(float const & elapsedTime, std::shared_ptr<Entity> ball){
         sf::Vector2f const & ballPos = ball->getPosition();
         sf::Vector2f const & pos = getPosition();
         
-        if(ballPos.x < pos.x-50){
+        if(ballPos.x < pos.x-20){
             speed -= 15.0f;
-        } else if (ballPos.x > pos.x+50){
+        } else if (ballPos.x > pos.x+20){
             speed += 15.0f;
         } else {
             speed = 0.0f;

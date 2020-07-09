@@ -1,4 +1,4 @@
-#include <iostream> // todo: delete when no longer needed
+// #include <iostream>
 #include <memory>
 
 #include <SFML/Window.hpp>
@@ -11,7 +11,6 @@
 #include "../lib/AiPaddle.hpp"
 
 void Game::start(){
-    std::cout << "starting" << std::endl;
     if(GameState::SplashScreen != gameState) {
         return;
     }
@@ -23,8 +22,7 @@ void Game::start(){
     paddle->load("graphics/paddle.png");
     paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
 
-    auto aipaddle = std::make_shared<AiPaddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
-
+    auto aipaddle = std::make_shared<AiPaddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 40));
     auto ball = std::make_shared<Ball>();
 
     world.add("player", paddle);
@@ -78,7 +76,7 @@ void Game::run(){
     while(window.isOpen()){
         auto elapsed = clock.restart();
         // lag += elapsed;
-        std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
+        //std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
         
         handleEvents();
         // either
@@ -114,7 +112,6 @@ void Game::run(){
                 break;
             }
             case GameState::Exiting:{
-                std::cout << "exiting" << std::endl;
                 window.close();
                 return;
             }

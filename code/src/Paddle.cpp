@@ -21,17 +21,18 @@ void Paddle::move(float const & elapsedTime){
         speed = -maxSpeed;
     }
 
-    auto const & posX = getPosition().x;
-    if( posX < 0 || posX + getWidth() > Game::screenWidth ){
-        // bounce in opposite direction with same speed
+    // bounce in opposite direction with same speed
+    auto pos = getPosition();
+    if(pos.x < 0) {
+        pos.x = 0;
+        setPosition(pos);
         speed = -speed;
-        
-        // todo: it seems that sometimes speed correction is not enough
-        // correct position if confirmed
-        // auto pos = getPosition();
-        // pos.x = Game::screenWidth - getWidth();
-        // setPosition(pos);
     }
+    if(pos.x + getWidth() > Game::screenWidth){
+        pos.x = Game::screenWidth - getWidth();
+        setPosition(pos);
+        speed = -speed;
+    } 
 
     getSprite().move(speed*elapsedTime, 0.0f);
 }
