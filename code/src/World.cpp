@@ -32,10 +32,16 @@ void World::drawAll(sf::RenderWindow& window) {
 
 void World::updateAll(float const & deltaTime){
     for(auto const & entity: entities){
-        if(entity.first == "ball" && nullptr != get("player")){
-            std::static_pointer_cast<Ball>(entity.second)->calcIntersection(get("player"));
+        if(entity.first == "ball"){
+            if(std::static_pointer_cast<Ball>(entity.second)->isMovingUp()){
+                entity.second->update(deltaTime, get("ai"));
+            } else {
+                entity.second->update(deltaTime, get("player"));
+            }
+        } else if(entity.first == "ai"){
+            entity.second->update(deltaTime, get("ball"));
+        } else {
+            entity.second->update(deltaTime);
         }
-        entity.second->update(deltaTime);
-        
     }
 }

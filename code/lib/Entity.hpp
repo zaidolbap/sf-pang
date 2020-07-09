@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -16,7 +17,7 @@ class Entity {
 
         virtual void load(std::string const & filename);
         virtual void draw(sf::RenderWindow& window);
-        virtual void update(float const & elapsedTime){};
+        virtual void update(float const & elapsedTime, std::shared_ptr<Entity> entity=nullptr){};
 
         virtual void setPosition(sf::Vector2f const & position);
         virtual sf::Vector2f getPosition() const;

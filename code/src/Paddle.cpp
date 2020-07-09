@@ -13,7 +13,31 @@ Paddle::Paddle(std::string const & filename, sf::Vector2f const & position)
 , maxSpeed(600.0f)
 {}
 
-void Paddle::update(float const & elapsedTime){
+void Paddle::move(float const & elapsedTime){
+    if(speed > maxSpeed){
+        speed = maxSpeed;
+    }
+    if(speed < -maxSpeed){
+        speed = -maxSpeed;
+    }
+
+    auto const & posX = getPosition().x;
+    if( posX < 0 || posX + getWidth() > Game::screenWidth ){
+        // bounce in opposite direction with same speed
+        speed = -speed;
+        
+        // todo: it seems that sometimes speed correction is not enough
+        // correct position if confirmed
+        // auto pos = getPosition();
+        // pos.x = Game::screenWidth - getWidth();
+        // setPosition(pos);
+    }
+
+    getSprite().move(speed*elapsedTime, 0.0f);
+}
+
+void Paddle::update(float const & elapsedTime, std::shared_ptr<Entity> entity){
+    // steer
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         speed -= 3.0f;
     }
@@ -24,16 +48,5 @@ void Paddle::update(float const & elapsedTime){
         speed = 0.0f;
     }
 
-    if(speed > maxSpeed){
-        speed = maxSpeed;
-    }
-    if(speed < -maxSpeed){
-        speed = -maxSpeed;
-    }
-
-    auto const & positionX = getPosition().x;
-    if( positionX < 0 || positionX + getWidth() > Game::screenWidth ){
-        speed = -speed; // bounce in opposite direction with same speed
-    }
-    getSprite().move(speed*elapsedTime, 0.f);
+    move(elapsedTime);
 }

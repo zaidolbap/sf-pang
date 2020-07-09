@@ -4,7 +4,30 @@
 #include <cmath>
 
 // to be replaced by std::numbers::pi defined in #include <numbers> in c++20 when it's supported
-constexpr float pi() { return std::atan(1.0f)*4.0f; }
+constexpr float pi(){
+    return std::atan(1.0f)*4.0f;
+}
+
+constexpr float deg2rad(float const & angle){
+    return angle * (pi()/180.f);
+}
+
+constexpr float reorient(float angle){
+    // ensure that 0 is up instead of to the right in our coordinate system
+    angle -= 90; 
+    if(angle < 0){
+        angle = 360.0f + angle;
+    }
+    return angle;
+}
+
+constexpr float linearSpeedX(float const & angle){
+    return std::cos(deg2rad(reorient(angle)));
+}
+
+constexpr float linearSpeedY(float const & angle){
+    return std::sin(deg2rad(reorient(angle)));
+}
 
 Ball::Ball()
 : Entity{230, "graphics/ball.png", sf::Vector2f(Game::screenWidth/2, Game::screenHeight/2)}
@@ -18,7 +41,7 @@ Ball::Ball(std::string const & filename, sf::Vector2f const & position)
 , totalElapsedTime{0}
 {}
 
-void Ball::update(float const & elapsedTime){
+void Ball::update(float const & elapsedTime, std::shared_ptr<Entity> paddle){
     totalElapsedTime += elapsedTime;
 
     if(totalElapsedTime < 1.0f){
@@ -44,13 +67,9 @@ void Ball::update(float const & elapsedTime){
         }
         moveX = -moveX;
     }
-    // collision with top screen boundary
-    if( getPosition().y <= 0){
-        angle = 180 - angle;
-        moveY = -moveY;
-    }
-    // collision with bottom screen boundary
-    if( getPosition().y + getHeight() + moveY >= Game::screenHeight){
+    // collision with top/bottom screen boundary
+    if( getPosition().y <= 0 ||
+        getPosition().y + getHeight() + moveY >= Game::screenHeight){
         // reset with randomized angle
         getSprite().setPosition(Game::screenWidth/2, Game::screenHeight/2);
         angle = static_cast<float>(std::rand()%360);
@@ -58,85 +77,71 @@ void Ball::update(float const & elapsedTime){
         totalElapsedTime = 0.0f;
     }
 
-    if (true == intersecting){
+    if (true == calcIntersection(paddle)){
         moveY = -moveY;
         speed += 5.0f;
-        angle = ricochet;
-        setPosition(collisionPos);
-    } else {
-        resetIntersection();
     }
 
     getSprite().move(moveX, moveY);    
 }
 
-void Ball::resetIntersection(){
-    intersecting = false;
-    ricochet     = angle;
-    collisionPos = sf::Vector2f{getPosition().x, getPosition().y};
-}
-
-void Ball::calcIntersection(std::shared_ptr<Entity> paddle){
-    resetIntersection();
+bool Ball::calcIntersection(std::shared_ptr<Entity> paddle){
+    if (nullptr == paddle){
+        return false;
+    }
 
     if(paddle->getBoundingRectangle().intersects(getBoundingRectangle())){
-        intersecting = true;
-
-        ricochet = 360.0f - (ricochet-180.0f);
-        if (ricochet > 360.0f){
-            ricochet -= 360.0f;
-        }
-        
         // ensure that the ball is not inside the paddle
-        if(paddle->getBoundingRectangle().top+getBoundingRectangle().height > paddle->getBoundingRectangle().top){
-            collisionPos.y = paddle->getBoundingRectangle().top-getHeight();
+        sf::Vector2f position{getPosition()};
+        if(isMovingUp()){
+            if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
+                position.y = paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height;
 
-        } else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
-            collisionPos.x = paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width;
+            } else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
+                position.x = paddle->getBoundingRectangle().left;
 
-        } else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
-            collisionPos.x = paddle->getBoundingRectangle().left;
+            } else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
+                position.x = paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width;
 
-        } else if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
-            collisionPos.y = paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height;
+            }         
+        } else{
+            if(getBoundingRectangle().top+getBoundingRectangle().height > paddle->getBoundingRectangle().top){
+                position.y = paddle->getBoundingRectangle().top-getHeight();
+
+            } else if(getBoundingRectangle().left < paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width){
+                position.x = paddle->getBoundingRectangle().left+paddle->getBoundingRectangle().width;
+
+            } else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
+                position.x = paddle->getBoundingRectangle().left;
+            }
         }
+        setPosition(position);
 
+        // calculate ricochet angle
+        angle = 360.0f - (angle-180.0f);
+        if (angle > 360.0f){
+            angle -= 360.0f;
+        }
         // add some randomness based on paddle's velocity
         if (paddle->getSpeed() < 0.0f){
             // moving left
-            ricochet -= 20.0f;
-            if (ricochet < 0.0f){
-                ricochet = 360.0f - ricochet;
+            angle -= 20.0f;
+            if (angle < 0.0f){
+                angle = 360.0f - angle;
             }
         } else if (paddle->getSpeed() > 0.0f){
             // moving right
-            ricochet += 20.0f;
-            if (ricochet > 360.0f){
-                ricochet = ricochet - 360;
+            angle += 20.0f;
+            if (angle > 360.0f){
+                angle = angle - 360;
             }
         }
+
+        return true;
+
+    } else {
+        return false;
     }
-}
-
-constexpr float reorient(float angle){
-    // ensure that 0 is up instead of to the right in our coordinate system
-    angle -= 90; 
-    if(angle < 0){
-        angle = 360.0f + angle;
-    }
-    return angle;
-}
-
-constexpr float deg2rad(float const & angle){
-    return angle * (pi()/180.f);
-}
-
-float Ball::linearSpeedX(float const & angle){
-    return std::cos(deg2rad(reorient(angle)));
-}
-
-float Ball::linearSpeedY(float const & angle){
-    return std::sin(deg2rad(reorient(angle)));
 }
 
 void Ball::setAngle(float const& angle){
@@ -146,3 +151,12 @@ void Ball::setAngle(float const& angle){
 float Ball::getAngle() const{
     return angle;
 }
+
+bool Ball::isMovingUp() const{
+    if(linearSpeedY(angle) < 0.0f){
+        return true;
+    } else {
+        return false;
+    }
+}
+

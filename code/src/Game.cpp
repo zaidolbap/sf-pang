@@ -8,6 +8,7 @@
 #include "../lib/SplashScreen.hpp"
 #include "../lib/Menu.hpp"
 #include "../lib/Ball.hpp"
+#include "../lib/AiPaddle.hpp"
 
 void Game::start(){
     std::cout << "starting" << std::endl;
@@ -22,13 +23,13 @@ void Game::start(){
     paddle->load("graphics/paddle.png");
     paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
 
-    // auto paddle2 = std::make_shared<Paddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
+    auto aipaddle = std::make_shared<AiPaddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 100));
 
     auto ball = std::make_shared<Ball>();
 
     world.add("player", paddle);
-    // world.add("paddle2", paddle2);
     world.add("ball", ball);
+    world.add("ai", aipaddle);
 
     run();
 }
