@@ -1,6 +1,7 @@
 # pang
 
-*a*ctualized *pong*: This is a project to learn modern cpp techniques as well as video game programming with sfml.
+Horizont*a*l *pong*: This is a project to learn modern cpp techniques as well as video game programming with sfml. It a version based on the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) with different design decisions, you can either get the images required from there or make your own.
+
 
 ## prerequisites
 The current configuration is set up to run on linux using 
