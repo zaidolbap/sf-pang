@@ -44,7 +44,6 @@ void Ball::update(float const & elapsedTime){
         }
         moveX = -moveX;
     }
-
     // collision with top screen boundary
     if( getPosition().y <= 0){
         angle = 180 - angle;
@@ -97,7 +96,7 @@ void Ball::calcIntersection(std::shared_ptr<Entity> paddle){
 
         } else if(getBoundingRectangle().left+getBoundingRectangle().width > paddle->getBoundingRectangle().left){
             collisionPos.x = paddle->getBoundingRectangle().left;
-            
+
         } else if(getBoundingRectangle().top < paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height){
             collisionPos.y = paddle->getBoundingRectangle().top+paddle->getBoundingRectangle().height;
         }
