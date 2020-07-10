@@ -59,7 +59,10 @@ void Game::showMenu(){
     }
 }
 
-void Game::handleEvents(){
+void Game::handleInput(){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        gameState = GameState::Menu;
+    }
     sf::Event event;
     while(window.pollEvent(event)){
         if(sf::Event::Closed ==  event.type){
@@ -75,21 +78,22 @@ void Game::run(){
     while(window.isOpen()){
         auto elapsed = clock.restart();
         // lag += elapsed;
-        //std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
+        // std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
+        // std::cout << "lag: " << lag.asSeconds() << std::endl;
         
-        handleEvents();
+        handleInput();
         // either
-        // handleInput(); --> put handleEvents() inside?
+        // handleInput();
         // while(lag > timePerFrame){
         //     lag -= timePerFrame;
-        //     update(elapsed); // or in update at the beginning?
+        //     update();
         // }
         // render();
-        // or simply
+        // sleep remaining time todo: add FPS control, is 30 fps enough?
+        // or
         // handleInput()
         // update(elapsed)
         // render
-        // sleep remaining time todo: add FPS control, is 30 fps enough?
 
         switch(gameState){
             case GameState::SplashScreen:{
@@ -102,12 +106,9 @@ void Game::run(){
             }
             case GameState::Playing: {
                 window.clear(sf::Color(0, 0, 0));
-                world.updateAll(elapsed.asSeconds());
+                    world.updateAll(elapsed.asSeconds());
                 world.drawAll(window);
                 window.display();
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-                    gameState = GameState::Menu;
-                }
                 break;
             }
             case GameState::Exiting:{

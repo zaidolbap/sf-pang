@@ -28,7 +28,7 @@ class Game {
         void run();
         void showSplashScreen();
         void showMenu();
-        void handleEvents();
+        void handleInput();
 
         enum class GameState{
             SplashScreen,
