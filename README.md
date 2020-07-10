@@ -1,25 +1,43 @@
 # pang
 
-Horizont*A*l version of *pong*: This is a project to learn modern cpp techniques as well as video game programming with sfml. It a version based on the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) with different design decisions, you can either get the images required from there or make your own.
+*A*lternative version of *pong* ~ pang: This is a small project aimed to improve my software skills, that is, to learn modern cpp techniques, design patterns and cmake.
+
+It is based on the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) with different software design decisions. You can either get the required resources (images) from this page or make your own, as they are not included in this repository.
 
 
-## prerequisites
-The current configuration is set up to run on linux using 
+## Prerequisites
+The current configuration was tested run on linux, mainly using 
 [vscode](https://code.visualstudio.com/docs/cpp/config-linux).
 
-Kindly install the following packages:
-* build-essential 
-* libsfml-dev
-* libsfml-doc
+You can also build it in cmake (see below).
 
-Example using apt in ubuntu's terminal:
+It depends on the basic build toolchain and sfml:
 ```
-sudo apt install build-essential 
+sudo apt install build-essential
 sudo apt install libsfml-dev libsfml-doc
 ```
 
-## running pang
-To run pang, open *pang.cpp* (main) in vscode and start the *gdb pang* debugging configuration.
+## Running pang
+There are three ways you can run pang:
+
+Open the folder in vscode and choose one of the following options:
+* start the *gdb pang* debugging configuration in vscode
+* run it via *CMake Tools* extension in vscode
+
+Or you can run it directly via terminal:
+
+Configure:
+```
+cmake -S . -B build
+```
+Build:
+```
+cmake --build build
+```
+Run:
+```
+./build/apps/pang
+```
 
 
 ---

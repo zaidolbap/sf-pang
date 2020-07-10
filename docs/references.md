@@ -12,6 +12,16 @@ References I inspired me to implement this code following modern cpp techniques.
 ## Move semantics
 * [C++ rvalue references and move semantics for beginners](https://www.internalpointers.com/post/c-rvalue-references-and-move-semantics-beginners)
 
+## Git Ignore
+* [Example of gitignore for several languages](https://github.com/github/gitignore)
+
+## Cmake
+
+* [Cmake basics] (https://cliutils.gitlab.io/modern-cmake/chapters/basics.html)
+* [Simple project](https://gitlab.com/CLIUtils/modern-cmake/tree/master/examples/simple-project)
+* [Extended project](https://gitlab.com/CLIUtils/modern-cmake/tree/master/examples/extended-project)
+* [SFML Cmake](https://github.com/SFML/SFML/wiki/Tutorial:-Build-your-SFML-project-with-CMake)
+
 
 ---
 [markdown reference](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)

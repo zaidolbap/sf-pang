@@ -12,6 +12,7 @@ class Game {
         void operator=(Game const &) = delete;
         Game(Game&&) = delete;
 
+        /// \brief return game instance
         static Game& instance() {
             static Game game;
             return game;

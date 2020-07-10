@@ -1,4 +1,4 @@
-#include "../lib/AiPaddle.hpp"
+#include "AiPaddle.hpp"
 
 
 AiPaddle::AiPaddle(std::string const & filename, sf::Vector2f const & position)

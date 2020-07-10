@@ -1,4 +1,4 @@
-#include "../lib/World.hpp"
+#include "World.hpp"
 
 void World::add(std::string const & name, std::shared_ptr<Entity> const & entity){
     entities.insert(std::make_pair(name, entity));

@@ -1,5 +1,5 @@
-#include "../lib/Ball.hpp"
-#include "../lib/Game.hpp"
+#include "Ball.hpp"
+#include "Game.hpp"
 
 #include <cmath>
 

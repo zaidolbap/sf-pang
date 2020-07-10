@@ -5,8 +5,10 @@
             "label": "build pang g++ sfml",
             "command": "/usr/bin/g++",
             "args": [
+                "-I/${workspaceFolder}/include/",
                 "-g",
-                "${workspaceFolder}/code/src/*.cpp",
+                "${workspaceFolder}/src/*.cpp",
+                "${workspaceFolder}/apps/pang.cpp",
                 "-Wall",
                 "-o",
                 "${workspaceFolder}/build/pang",

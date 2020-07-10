@@ -1,5 +1,5 @@
-#include "../lib/Paddle.hpp"
-#include "../lib/Game.hpp"
+#include "Paddle.hpp"
+#include "Game.hpp"
 
 #include <SFML/Window/Keyboard.hpp>
 

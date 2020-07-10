@@ -1,4 +1,4 @@
-#include "../lib/Entity.hpp"
+#include "Entity.hpp"
 
 Entity::Entity(float const& speed, std::string const & filename, sf::Vector2f const & position)
 : speed{speed}{

@@ -1,4 +1,4 @@
-#include "../lib/SplashScreen.hpp"
+#include "SplashScreen.hpp"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/Texture.hpp>

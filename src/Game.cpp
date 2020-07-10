@@ -4,11 +4,11 @@
 #include <SFML/Window.hpp>
 #include <SFML/System/Clock.hpp>
 
-#include "../lib/Game.hpp"
-#include "../lib/SplashScreen.hpp"
-#include "../lib/Menu.hpp"
-#include "../lib/Ball.hpp"
-#include "../lib/AiPaddle.hpp"
+#include "Game.hpp"
+#include "SplashScreen.hpp"
+#include "Menu.hpp"
+#include "Ball.hpp"
+#include "AiPaddle.hpp"
 
 void Game::start(){
     if(GameState::SplashScreen != gameState) {
@@ -19,9 +19,8 @@ void Game::start(){
     window.create(sf::VideoMode(screenWidth, screenHeight, 32), "Pang!");
     
     auto paddle = std::make_shared<Paddle>();
-    paddle->load("graphics/paddle.png");
-    paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
-
+         paddle->load("graphics/paddle.png");
+         paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
     auto aipaddle = std::make_shared<AiPaddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 40));
     auto ball = std::make_shared<Ball>();
 

@@ -1,4 +1,4 @@
-#include "../lib/Menu.hpp"
+#include "Menu.hpp"
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
