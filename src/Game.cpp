@@ -77,7 +77,6 @@ void Game::handleInput(){
 }
 
 void Game::run(){
-    // @todo: implement state pattern
     sf::Clock clock;
     while(window.isOpen()){
         auto elapsed = clock.restart();

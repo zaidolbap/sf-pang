@@ -2,7 +2,7 @@
 
 *A*lternative version of *pong* ~ pang: This is a small project aimed to improve my software skills, that is, to learn modern cpp techniques, design patterns and cmake.
 
-It is based on the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) with different software design decisions. You can either get the required resources (images) from this page or make your own, as they are not included in this repository.
+It was originally inspired by the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) but follows different software design decisions.
 
 
 ## Prerequisites
