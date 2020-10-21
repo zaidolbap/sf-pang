@@ -1,6 +1,8 @@
 #include "Game.hpp"
 
 int main() {
-    Game::instance().start();
+    Game game;
+    game.start();
+    
     return 0;
 }
