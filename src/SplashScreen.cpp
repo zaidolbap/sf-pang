@@ -6,7 +6,7 @@
 
 SplashScreen::Response SplashScreen::display(sf::RenderWindow& window){
     sf::Texture texture;
-    if(!texture.loadFromFile("graphics/splashscreen.png")){
+    if(!texture.loadFromFile("graphics/splash.png")){
         return Response::Ack;
     }
 

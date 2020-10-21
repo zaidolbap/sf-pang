@@ -6,7 +6,7 @@
 
 Menu::Response Menu::display(sf::RenderWindow& window){
     sf::Texture texture;
-    if(!texture.loadFromFile("graphics/mainmenu.png")){
+    if(!texture.loadFromFile("graphics/menu.png")){
         return Response::Play;
     }
 
