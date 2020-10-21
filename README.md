@@ -1,6 +1,6 @@
-# pang
+# sf::pong
 
-*A*lternative version of *pong* ~ pang: This is a small project aimed to improve my software skills, that is, to learn modern cpp techniques, design patterns and cmake.
+Vertical Pong using C++ & SFML: This is a small project aimed to improve my software skills, that is, to learn modern cpp techniques, design patterns and cmake.
 
 It was originally inspired by the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) but it follows different software design decisions.
 
