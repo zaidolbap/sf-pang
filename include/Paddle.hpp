@@ -7,9 +7,9 @@ class Paddle
     public:
         Paddle();
         Paddle(std::string const & filename, sf::Vector2f const & position);
-        void update(float const & elapsedTime, std::shared_ptr<Entity> entity=nullptr) override;
+        void update(sf::Time const & elapsed, std::shared_ptr<Entity> entity=nullptr) override;
 
     protected:
-        void move(float const & elapsedTime);
+        void move(sf::Time const & elapsed);
         float maxSpeed{600.0f};
 };

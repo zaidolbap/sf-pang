@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Time.hpp>
 
 
 class Entity {
@@ -17,7 +18,7 @@ class Entity {
 
         virtual void load(std::string const & filename);
         virtual void draw(sf::RenderWindow& window);
-        virtual void update(float const & elapsedTime, std::shared_ptr<Entity> entity=nullptr){};
+        virtual void update(sf::Time const & elapsedTime, std::shared_ptr<Entity> entity=nullptr){};
 
         virtual void setPosition(sf::Vector2f const & position);
         virtual sf::Vector2f getPosition() const;

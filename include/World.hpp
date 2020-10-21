@@ -6,6 +6,7 @@
 #include <tuple>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "Entity.hpp"
 #include "Ball.hpp"
@@ -18,7 +19,7 @@ class World {
         std::size_t getObjectCount() const;
         std::shared_ptr<Entity> get(std::string const & name) const;
         void drawAll(sf::RenderWindow& window);
-        void updateAll(float const & deltaTime);
+        void updateAll(sf::Time const & delta);
 
     private:
         std::map<std::string, std::shared_ptr<Entity>> entities;

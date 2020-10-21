@@ -5,16 +5,16 @@ AiPaddle::AiPaddle(std::string const & filename, sf::Vector2f const & position)
 : Paddle{filename, position}
 {}
 
-void AiPaddle::update(float const & elapsedTime, std::shared_ptr<Entity> ball){
+void AiPaddle::update(sf::Time const & elapsed, std::shared_ptr<Entity> ball){
     // steer
     if (ball != nullptr){
         sf::Vector2f const & ballPos = ball->getPosition();
         sf::Vector2f const & pos = getPosition();
         
         if(ballPos.x < pos.x-20){
-            speed -= 15.0f;
+            speed -= 5.0f;
         } else if (ballPos.x > pos.x+20){
-            speed += 15.0f;
+            speed += 5.0f;
         } else {
             speed = 0.0f;
         }
@@ -22,5 +22,5 @@ void AiPaddle::update(float const & elapsedTime, std::shared_ptr<Entity> ball){
         speed = 0.0f;
     }
 
-    move(elapsedTime);
+    move(elapsed);
 }

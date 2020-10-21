@@ -32,24 +32,24 @@ constexpr float linearSpeedY(float const & angle){
 Ball::Ball()
 : Entity{230, "graphics/ball.png", sf::Vector2f(Game::screenWidth/2, Game::screenHeight/2)}
 , angle{0}
-, totalElapsedTime{0}
+, totalElapsed{}
 {}
 
 Ball::Ball(std::string const & filename, sf::Vector2f const & position)
 : Entity{230, filename, position}
 , angle{0}
-, totalElapsedTime{0}
+, totalElapsed{}
 {}
 
-void Ball::update(float const & elapsedTime, std::shared_ptr<Entity> paddle){
-    totalElapsedTime += elapsedTime;
+void Ball::update(sf::Time const & elapsed, std::shared_ptr<Entity> paddle){
+    totalElapsed += elapsed;
 
-    if(totalElapsedTime < 1.0f){
-        // delay game until 1 seconds have passed
+    if(totalElapsed < sf::Time{sf::seconds(1.0f)}){
+        // delay start until 1 second has passed
         return;
     }
 
-    auto const moveAmount = speed * elapsedTime;
+    auto const moveAmount = speed * elapsed.asSeconds();
     auto moveX = linearSpeedX(angle) * moveAmount;
     auto moveY = linearSpeedY(angle) * moveAmount;
 
@@ -74,7 +74,7 @@ void Ball::update(float const & elapsedTime, std::shared_ptr<Entity> paddle){
         getSprite().setPosition(Game::screenWidth/2, Game::screenHeight/2);
         angle = static_cast<float>(std::rand()%360);
         speed = 220.0f;
-        totalElapsedTime = 0.0f;
+        totalElapsed = sf::Time{};
     }
 
     if (true == calcIntersection(paddle)){

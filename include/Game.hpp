@@ -32,5 +32,5 @@ class Game {
         World world{};
 
         constexpr static float FPS{30.f};
-        sf::Time const timePerFrame{sf::seconds(1.0f/FPS)};
+        sf::Time const timePerFrame{sf::seconds(1.0f/FPS)};// 0.0333
 };

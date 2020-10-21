@@ -9,7 +9,7 @@ class Ball
     public:
         Ball();
         Ball(std::string const & filename, sf::Vector2f const & position);
-        void update(float const & elapsedTime, std::shared_ptr<Entity> paddle=nullptr) override;
+        void update(sf::Time const & elapsed, std::shared_ptr<Entity> paddle=nullptr) override;
 
         float getAngle() const;
         void setAngle(float const & angle);
@@ -17,7 +17,7 @@ class Ball
 
     private:
         float angle{0.0f};   // degrees
-        float totalElapsedTime{0.0f}; // seconds
+        sf::Time totalElapsed{};
 
         bool calcIntersection(std::shared_ptr<Entity> paddle);
 };

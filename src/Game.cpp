@@ -1,5 +1,7 @@
 // #include <iostream>
 #include <memory>
+#include <chrono>
+#include <thread>
 
 #include <SFML/Window.hpp>
 #include <SFML/System/Clock.hpp>
@@ -56,17 +58,20 @@ void Game::showMenu(){
             break;
         default:
             gameState = GameState::Exiting;
+            break;
     }
 }
 
 void Game::handleInput(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
         gameState = GameState::Menu;
+        return;
     }
     sf::Event event;
     while(window.pollEvent(event)){
         if(sf::Event::Closed ==  event.type){
             gameState = GameState::Exiting;
+            return;
         } 
     }
 }
@@ -74,26 +79,11 @@ void Game::handleInput(){
 void Game::run(){
     // @todo: implement state pattern
     sf::Clock clock;
-    auto lag = sf::Time::Zero;
     while(window.isOpen()){
         auto elapsed = clock.restart();
-        // lag += elapsed;
         // std::cout << "elapsedTime: " << elapsed.asSeconds() << std::endl;
-        // std::cout << "lag: " << lag.asSeconds() << std::endl;
         
         handleInput();
-        // either
-        // handleInput();
-        // while(lag > timePerFrame){
-        //     lag -= timePerFrame;
-        //     update();
-        // }
-        // render();
-        // sleep remaining time todo: add FPS control, is 30 fps enough?
-        // or
-        // handleInput()
-        // update(elapsed)
-        // render
 
         switch(gameState){
             case GameState::SplashScreen:{
@@ -106,9 +96,14 @@ void Game::run(){
             }
             case GameState::Playing: {
                 window.clear(sf::Color(0, 0, 0));
-                    world.updateAll(elapsed.asSeconds());
+                world.updateAll(elapsed);
                 world.drawAll(window);
                 window.display();
+
+                if (timePerFrame - elapsed > sf::Time{}){
+                    // sleep only if the elapsed time is smaller than time per frame
+                    std::this_thread::sleep_for(std::chrono::milliseconds( (timePerFrame - elapsed).asMilliseconds() ));
+                }
                 break;
             }
             case GameState::Exiting:{

@@ -30,18 +30,18 @@ void World::drawAll(sf::RenderWindow& window) {
     }
 }
 
-void World::updateAll(float const & deltaTime){
+void World::updateAll(sf::Time const & delta){
     for(auto const & entity: entities){
         if(entity.first == "ball"){
             if(std::static_pointer_cast<Ball>(entity.second)->isMovingUp()){
-                entity.second->update(deltaTime, get("ai"));
+                entity.second->update(delta, get("ai"));
             } else {
-                entity.second->update(deltaTime, get("player"));
+                entity.second->update(delta, get("player"));
             }
         } else if(entity.first == "ai"){
-            entity.second->update(deltaTime, get("ball"));
+            entity.second->update(delta, get("ball"));
         } else {
-            entity.second->update(deltaTime);
+            entity.second->update(delta);
         }
     }
 }

@@ -7,5 +7,5 @@ class AiPaddle
     public:
         AiPaddle() = default;
         AiPaddle(std::string const & filename, sf::Vector2f const & position);
-        void update(float const & elapsedTime, std::shared_ptr<Entity> ball=nullptr) override;
+        void update(sf::Time const & elapsedTime, std::shared_ptr<Entity> ball=nullptr) override;
 };

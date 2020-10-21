@@ -13,7 +13,7 @@ Paddle::Paddle(std::string const & filename, sf::Vector2f const & position)
 , maxSpeed(600.0f)
 {}
 
-void Paddle::move(float const & elapsedTime){
+void Paddle::move(sf::Time const & elapsed){
     if(speed > maxSpeed){
         speed = maxSpeed;
     }
@@ -34,20 +34,45 @@ void Paddle::move(float const & elapsedTime){
         speed = -speed;
     } 
 
-    getSprite().move(speed*elapsedTime, 0.0f);
+    getSprite().move(speed*elapsed.asSeconds(), 0.0f);
 }
 
-void Paddle::update(float const & elapsedTime, std::shared_ptr<Entity> entity){
-    // steer
+bool isNoKeyPressed()
+{
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        speed -= 3.0f;
+        return false;
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        speed += 3.0f;
+        return false;
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        return false;
+    }
+    return true;
+}
+
+void Paddle::update(sf::Time const & elapsed, std::shared_ptr<Entity> entity){
+    // steer
+    if( isNoKeyPressed()){
+        
+        if (speed < 0.0f) {
+            speed += 3.0f;
+            speed =  std::min(speed, 0.0f);
+        } else {
+            speed -= 3.0f;
+            speed =  std::max(speed, 0.0f);
+        }
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        speed -= 5.0f;
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        speed += 5.0f;
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         speed = 0.0f;
     }
 
-    move(elapsedTime);
+    move(elapsed);
 }
