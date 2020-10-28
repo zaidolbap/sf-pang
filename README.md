@@ -11,10 +11,11 @@ The current configuration was tested to run on linux, mainly using
 
 You can also build it in cmake (see below).
 
-It depends on the basic build toolchain and sfml:
+It depends on the following packages:
 ```
 sudo apt install build-essential
 sudo apt install libsfml-dev libsfml-doc
+sudo apt instal cmake
 ```
 
 ## Running pang
@@ -22,9 +23,9 @@ There are three ways you can run pang:
 
 Open the folder in vscode and choose one of the following options:
 * start the *gdb pang* debugging configuration in vscode
-* run it via *CMake Tools* extension in vscode
+* run it via *CMake Tools* extension in vscode (make sure that your vscode terminal is in the project's root folder so all resources are found)
 
-Or you can run it directly via terminal:
+Or you can run it directly via terminal using the following commands from the project's root folder:
 
 Configure:
 ```
