@@ -1,12 +1,12 @@
-# sf::pong
+# sf::pang
 
-Vertical Pong using C++ & SFML: This is a small project aimed to improve my software skills, that is, to learn modern cpp techniques, design patterns and cmake.
+Vertic*A*l Pong using C++ & SFML: This is a small project aimed to improve my software skills, that is, to learn how to make games using modern cpp techniques, design patterns and cmake.
 
 It was originally inspired by the following [tutorial](https://www.gamefromscratch.com/page/Game-From-Scratch-CPP-Edition-Part-1.aspx) but it follows different software design decisions.
 
 
 ## Prerequisites
-The current configuration was tested run on linux, mainly using 
+The current configuration was tested to run on linux, mainly using 
 [vscode](https://code.visualstudio.com/docs/cpp/config-linux).
 
 You can also build it in cmake (see below).
