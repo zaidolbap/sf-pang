@@ -4,7 +4,7 @@
 #include <SFML/Window/Keyboard.hpp>
 
 Paddle::Paddle()
-: Entity(0.0f, "graphics/paddle.png", sf::Vector2f(0.0f, 0.0f))
+: Entity(0.0f, "img/paddle.png", sf::Vector2f(0.0f, 0.0f))
 , maxSpeed(600.f)
 {}
 

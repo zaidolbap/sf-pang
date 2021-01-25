@@ -1,6 +1,11 @@
+set(executable_name "pang")
+add_executable(${executable_name} pang.cpp)
+target_link_libraries(${executable_name} PRIVATE pang_lib)
 
-set(ExecutableName "pang")
-
-add_executable(${ExecutableName} pang.cpp)
-target_compile_features(${ExecutableName} PRIVATE cxx_std_17)
-target_link_libraries(${ExecutableName} PRIVATE pang_library sfml-graphics sfml-window sfml-system)
+# copy img folder to the target
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/libs/pang_lib/img/
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>/img/
+)

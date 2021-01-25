@@ -4,9 +4,20 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+        #include <unistd.h>
+        #include <stdio.h>
+
 SplashScreen::Response SplashScreen::display(sf::RenderWindow& window){
+        // YOU ARE HERE:
+        // WHEN DEBUG -> /home/zaidolbap/repos/pang/build/apps
+        // WHEN cmake   -> /home/zaidolbap/repos/pang v
+        char cwd[1024];
+        getcwd(cwd, sizeof(cwd));
+        printf("Current working dir: %s\n", cwd);
+        //
+    
     sf::Texture texture;
-    if(!texture.loadFromFile("graphics/splash.png")){
+    if(!texture.loadFromFile("img/splash.png")){
         return Response::Ack;
     }
 

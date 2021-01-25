@@ -30,7 +30,7 @@ constexpr float linearSpeedY(float const & angle){
 }
 
 Ball::Ball()
-: Entity{230, "graphics/ball.png", sf::Vector2f(Game::screenWidth/2, Game::screenHeight/2)}
+: Entity{230, "img/ball.png", sf::Vector2f(Game::screenWidth/2, Game::screenHeight/2)}
 , angle{0}
 , totalElapsed{}
 {}

@@ -21,9 +21,9 @@ void Game::start(){
     window.create(sf::VideoMode(screenWidth, screenHeight, 32), "Pang!");
     
     auto paddle = std::make_shared<Paddle>();
-         paddle->load("graphics/paddle.png");
+         paddle->load("img/paddle.png");
          paddle->setPosition(sf::Vector2f((screenWidth/2)-45,700));
-    auto aipaddle = std::make_shared<AiPaddle>("graphics/paddle.png", sf::Vector2f((screenWidth/2)-45, 40));
+    auto aipaddle = std::make_shared<AiPaddle>("img/paddle.png", sf::Vector2f((screenWidth/2)-45, 40));
     auto ball = std::make_shared<Ball>();
 
     world.add("player", paddle);

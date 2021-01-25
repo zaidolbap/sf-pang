@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/build/pang",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/libs/pang_lib",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
