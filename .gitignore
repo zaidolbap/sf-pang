@@ -1,6 +1,6 @@
 # ignore all files in the following directories
-#graphics/
-#build/
+img/
+build/
 
 ## ignore common cpp related files
 
